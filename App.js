@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import FrontPage from "./components/FrontPage/FrontPage";
 import { useEffect } from "react";
-import ThemeContext from "./components/Theme/ThemeContext";
+import ThemeContext from "./components/Utilities/ThemeContext";
 
 export default function App() {
   const colorScheme = useColorScheme();
