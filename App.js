@@ -7,14 +7,18 @@ import {
   useColorScheme,
 } from "react-native";
 import FrontPage from "./components/FrontPage/FrontPage";
+import { useEffect } from "react";
 
 export default function App() {
-  const colorScheme = "light";
+  const colorScheme = useColorScheme();
+
+  useEffect(() => {}, [colorScheme]);
 
   const bgColorScheme =
     colorScheme === "light" ? styles.bgLightScheme : styles.bgDarkScheme;
   return (
     <SafeAreaView style={[styles.container, bgColorScheme]}>
+      <Text>{colorScheme}</Text>
       <FrontPage colorScheme={colorScheme} />
     </SafeAreaView>
   );
