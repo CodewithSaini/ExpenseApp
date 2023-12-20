@@ -8,27 +8,25 @@ import {
 } from "react-native";
 import FrontPage from "./components/FrontPage/FrontPage";
 import { useEffect } from "react";
+import ThemeContext from "./components/Theme/ThemeContext";
 
 export default function App() {
   const colorScheme = useColorScheme();
 
-  useEffect(() => {}, [colorScheme]);
-
   const bgColorScheme =
     colorScheme === "light" ? styles.bgLightScheme : styles.bgDarkScheme;
   return (
-    <SafeAreaView style={[styles.container, bgColorScheme]}>
-      <Text>{colorScheme}</Text>
-      <FrontPage colorScheme={colorScheme} />
-    </SafeAreaView>
+    <ThemeContext.Provider value={colorScheme}>
+      <SafeAreaView style={[styles.container, bgColorScheme]}>
+        <FrontPage />
+      </SafeAreaView>
+    </ThemeContext.Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    height: "100%",
     alignItems: "center",
     padding: 10,
     justifyContent: "space-evenly",

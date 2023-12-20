@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   dividerContainer: {
     flexDirection: "row", // Align items horizontally
     alignItems: "center", // Center items vertically
-    width: "70%",
+    width: "60%",
   },
   line: {
     flex: 1, // Take up equal space on both sides of the text
