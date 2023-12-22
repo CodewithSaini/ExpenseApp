@@ -29,12 +29,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 10,
-    justifyContent: "space-evenly",
+    justifyContent: "center",
+    gap: 20,
   },
   bgDarkScheme: {
     backgroundColor: "#303030",
   },
   bgLightScheme: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f8f8f8",
   },
 });

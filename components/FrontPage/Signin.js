@@ -1,12 +1,11 @@
 import React from "react";
 import {
   Text,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
   TextInput,
   View,
   Image,
   StyleSheet,
+  TouchableHighlight,
 } from "react-native";
 import { useContext, useState } from "react";
 import Divider from "./Divider";
@@ -17,7 +16,11 @@ export default function Signin() {
   const [password, setPassword] = useState("");
   const textColorScheme =
     colorScheme === "light" ? styles.textLightScheme : styles.textDarkScheme;
-
+  const specialBtnBg =
+    colorScheme === "light"
+      ? styles.specialBtnLightBg
+      : styles.specialBtnDarkBg;
+  const underlyingBg = colorScheme === "light" ? "#f9f9f9" : "#414141";
   const textColor = colorScheme === "light" ? "#404040" : "grey";
   const handleSignin = (state) => {
     console.log(username, password);
@@ -27,15 +30,22 @@ export default function Signin() {
   return (
     <>
       <View>
-        <TouchableOpacity style={styles.specialButton}>
-          <Image
-            source={require("../../assets/search.png")}
-            style={styles.image}
-          />
-          <Text style={{ color: textColor, fontSize: 20 }}>
-            Continue with Google
-          </Text>
-        </TouchableOpacity>
+        <TouchableHighlight
+          onPress={() => console.log("hi")}
+          underlayColor={underlyingBg}
+          activeOpacity={0.7}
+          style={[styles.specialButton, specialBtnBg]}
+        >
+          <View style={styles.specialButtonInner}>
+            <Image
+              source={require("../../assets/search.png")}
+              style={styles.image}
+            />
+            <Text style={{ color: textColor, fontSize: 20 }}>
+              Continue with Google
+            </Text>
+          </View>
+        </TouchableHighlight>
       </View>
       <Divider text="or" />
       <View>
@@ -52,9 +62,13 @@ export default function Signin() {
           secureTextEntry={true}
           style={[styles.input, textColorScheme]}
         ></TextInput>
-        <TouchableOpacity onPress={handleSignin} style={styles.button}>
+        <TouchableHighlight
+          underlayColor={"#0066FF"}
+          onPress={handleSignin}
+          style={styles.button}
+        >
           <Text style={{ color: "#f8f8f8", fontSize: 18 }}>Sign in</Text>
-        </TouchableOpacity>
+        </TouchableHighlight>
       </View>
     </>
   );
@@ -79,10 +93,12 @@ const styles = StyleSheet.create({
     marginBottom: 70,
   },
   textLightScheme: {
-    color: "#3702b3",
+    color: "#000000",
+    backgroundColor: "#ffffff",
   },
   textDarkScheme: {
-    color: "#bb86fc",
+    color: "#f8f8f8",
+    backgroundColor: "#404040",
   },
   button: {
     marginTop: 10,
@@ -96,19 +112,29 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   specialButton: {
-    flexDirection: "row",
     borderRadius: 25,
     borderColor: "grey",
-    gap: 20,
+    alignItems: "center",
+    justifyContent: "center",
     width: 320,
     height: 45,
     borderWidth: 1,
     padding: 5,
-    justifyContent: "center",
-    alignItems: "center",
+  },
+  specialBtnLightBg: {
+    backgroundColor: "#f8f8f8",
+  },
+  specialBtnDarkBg: {
+    backgroundColor: "#404040",
   },
   image: {
     width: 28,
     height: 28,
+  },
+  specialButtonInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 20,
   },
 });

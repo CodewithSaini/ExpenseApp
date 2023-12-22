@@ -8,18 +8,23 @@ import {
   Button,
   Keyboard,
 } from "react-native";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import ThemeContext from "../Utilities/ThemeContext";
-import Font from "../Utilities/Font";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import { useFonts, Whisper_400Regular } from "@expo-google-fonts/whisper";
 export default function FrontPage() {
-  Font();
   const [signUp, setSignUp] = useState(false);
   const colorScheme = useContext(ThemeContext);
   const textColor = colorScheme === "light" ? "#404040" : "grey";
   const textColorScheme =
     colorScheme === "light" ? styles.textLightScheme : styles.textDarkScheme;
+  const [fontsLoaded, fontError] = useFonts({
+    Whisper_400Regular,
+  });
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
     <KeyboardAvoidingView
@@ -32,14 +37,29 @@ export default function FrontPage() {
           {signUp ? <Signup style={styles} /> : <Signin style={styles} />}
         </View>
       </TouchableWithoutFeedback>
+
       <View style={styles.signup}>
-        <Text style={{ color: textColor }}>Don't have an account?</Text>
-        <Button
-          onPress={() => {
-            setSignUp(true);
-          }}
-          title="Sign up"
-        ></Button>
+        {signUp ? (
+          <>
+            <Text style={{ color: textColor }}>Already have an account?</Text>
+            <Button
+              onPress={() => {
+                setSignUp(false);
+              }}
+              title="Sign in"
+            ></Button>
+          </>
+        ) : (
+          <>
+            <Text style={{ color: textColor }}>Don't have an account?</Text>
+            <Button
+              onPress={() => {
+                setSignUp(true);
+              }}
+              title="Sign up"
+            ></Button>
+          </>
+        )}
       </View>
     </KeyboardAvoidingView>
   );
@@ -47,7 +67,7 @@ export default function FrontPage() {
 
 const styles = StyleSheet.create({
   safe: {
-    height: "90%",
+    height: "80%",
     width: "100%",
     gap: 40,
     alignItems: "center",
@@ -63,7 +83,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Whisper_400Regular",
     fontSize: 44,
-    marginBottom: 70,
+    marginVertical: 20,
   },
   textLightScheme: {
     color: "#3702b3",
@@ -76,6 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    padding: 5,
+    marginTop: 20,
   },
 });
